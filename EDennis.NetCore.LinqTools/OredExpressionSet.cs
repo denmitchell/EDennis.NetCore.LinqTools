@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Text;
 
 namespace EDennis.NetCore.LinqTools {
-    public class OredExpressions<TEntity> : List<AndedExpressions<TEntity>> 
+    public class OredExpressionSet<TEntity> : List<AndedExpressionSet<TEntity>> 
         where TEntity: class {
 
         public Expression Expression {            

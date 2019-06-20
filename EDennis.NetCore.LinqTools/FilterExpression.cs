@@ -7,7 +7,7 @@ namespace EDennis.NetCore.LinqTools {
     public class FilterExpression<TEntity>
         where TEntity: class {
         public string Property { get; set; }
-        public string Operation { get; set; }
+        public FilterOperation Operation { get; set; }
         public string StringValue { get; set; }
 
         public Expression Expression {
@@ -22,17 +22,17 @@ namespace EDennis.NetCore.LinqTools {
                 var right = Expression.Constant(objVal);
 
                 switch (Operation) {
-                    case "Eq":
+                    case FilterOperation.Eq:
                         return Expression.Equal(left, right);
-                    case "Lt":
+                    case FilterOperation.Lt:
                         return Expression.LessThan(left, right);
-                    case "Le":
+                    case FilterOperation.Le:
                         return Expression.LessThanOrEqual(left, right);
-                    case "Gt":
+                    case FilterOperation.Gt:
                         return Expression.GreaterThan(left, right);
-                    case "Ge":
+                    case FilterOperation.Ge:
                         return Expression.GreaterThanOrEqual(left, right);
-                    case "Like":
+                    case FilterOperation.Like:
                         return Expression.Call(left, "Contains", Type.EmptyTypes, right); 
 
                 }
