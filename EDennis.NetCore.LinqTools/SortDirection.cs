@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace EDennis.NetCore.LinqTools {
-    public enum OrderByDirection {
+    public enum SortDirection {
         Ascending,
         Descending
     }

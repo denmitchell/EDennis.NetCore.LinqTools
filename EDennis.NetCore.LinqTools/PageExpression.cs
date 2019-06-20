@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace EDennis.NetCore.LinqTools {
-    public class PagingExpression {
+    public class PageExpression {
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
 
@@ -17,7 +17,7 @@ namespace EDennis.NetCore.LinqTools {
             return query;
         }
 
-        public IQueryable<TEntity> AddPaging<TEntity>(IQueryable<TEntity> source)
+        public IQueryable<TEntity> ApplyTo<TEntity>(IQueryable<TEntity> source)
             where TEntity : class {
 
             var query = source.Skip((PageNumber - 1) * PageSize);

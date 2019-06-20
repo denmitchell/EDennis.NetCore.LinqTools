@@ -6,23 +6,22 @@ using System.Reflection;
 using System.Text;
 
 namespace EDennis.NetCore.LinqTools {
-    public class OrderByUtils {
+
+    public class SortExpression<TEntity,TKey>: List<SortUnit<TEntity,TKey>> 
+        where TEntity: class{
 
 
+        public IOrderedQueryable<TEntity> ApplyTo
+                (IQueryable<TEntity> source) {
 
-        public static IOrderedQueryable<TEntity> BuildOrderedQueryable<TEntity, TKey>
-                (IQueryable<TEntity> source, OrderByExpression<TEntity, TKey>[] orderByExpressions)
-                    where TEntity : class {
-
-            var propertySelectors = GetPropertySelectors(orderByExpressions);
+            var propertySelectors = GetPropertySelectors();
             return BuildOrderedQueryable(source, propertySelectors);
 
         }
 
 
-        public static IOrderedQueryable<TEntity> BuildOrderedQueryable<TEntity, TKey>
-            (IQueryable<TEntity> source, params Expression<Func<TEntity, TKey>>[] propertySelectors)
-                where TEntity : class {
+        private IOrderedQueryable<TEntity> BuildOrderedQueryable
+            (IQueryable<TEntity> source, params Expression<Func<TEntity, TKey>>[] propertySelectors){
             IOrderedQueryable<TEntity> ordered = null;
             if (propertySelectors.Length > 0)
                 ordered = AddOrderByExpression(source, propertySelectors[0]);
@@ -34,9 +33,8 @@ namespace EDennis.NetCore.LinqTools {
             return ordered;
         }
 
-        private static IOrderedQueryable<TEntity> AddOrderByExpression<TEntity, TKey>(IQueryable<TEntity> source,
-            Expression<Func<TEntity, TKey>> prop)
-            where TEntity : class {
+        private static IOrderedQueryable<TEntity> AddOrderByExpression(IQueryable<TEntity> source,
+            Expression<Func<TEntity, TKey>> prop){
             var name = prop.Parameters[0].Name;
             if (name.ToLower() == "d"
                 || name.ToLower() == "desc"
@@ -51,9 +49,8 @@ namespace EDennis.NetCore.LinqTools {
         }
 
 
-        private static IOrderedQueryable<TEntity> AddOrderByExpression<TEntity, TKey>(IOrderedQueryable<TEntity> source,
-            Expression<Func<TEntity, TKey>> prop)
-            where TEntity : class {
+        private static IOrderedQueryable<TEntity> AddOrderByExpression(IOrderedQueryable<TEntity> source,
+            Expression<Func<TEntity, TKey>> prop){
             var name = prop.Parameters[0].Name;
             if (name.ToLower() == "d"
                 || name.ToLower() == "desc"
@@ -69,17 +66,17 @@ namespace EDennis.NetCore.LinqTools {
 
 
 
-        public static Expression<Func<TEntity, TKey>>[] GetPropertySelectors<TEntity, TKey>(OrderByExpression<TEntity, TKey>[] orderByExpressions) {
+        public Expression<Func<TEntity, TKey>>[] GetPropertySelectors() {
             var list = new List<Expression<Func<TEntity, TKey>>>();
-            foreach (var orderByExpression in orderByExpressions) {
+            foreach (var orderByExpression in this) {
                 list.Add(GetProperty(orderByExpression));
             }
             return list.ToArray();
         }
 
-        public static Expression<Func<TEntity, TKey>> GetProperty<TEntity, TKey>(OrderByExpression<TEntity, TKey> orderByExpression) {
+        public static Expression<Func<TEntity, TKey>> GetProperty(SortUnit<TEntity, TKey> orderByExpression) {
             var type = typeof(TEntity);
-            ParameterExpression arg = Expression.Parameter(type, (orderByExpression.Direction == OrderByDirection.Ascending) ? "asc" : "desc");
+            ParameterExpression arg = Expression.Parameter(type, (orderByExpression.Direction == SortDirection.Ascending) ? "asc" : "desc");
             Expression expr = arg;
             PropertyInfo pi = type.GetProperty(orderByExpression.Property);
             expr = Expression.Property(expr, pi);
