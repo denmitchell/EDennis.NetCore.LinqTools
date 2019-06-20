@@ -1,0 +1,42 @@
+﻿{
+  "filter": [
+    [
+      {
+        "property": "FirstName",
+        "operation": "Eq",
+        "stringValue": "Bob"
+      },
+      {
+        "property": "Age",
+        "operation": "Lt",
+        "stringValue": "18"
+      }
+    ],
+    [
+      {
+        "property": "FirstName",
+        "operation": "Eq",
+        "stringValue": "Alice"
+      },
+      {
+        "property": "Age",
+        "operation": "Ge",
+        "stringValue": "18"
+      }
+    ]
+  ],
+  "sort": [
+    {
+      "property": "FirstName",
+      "direction": "Ascending"
+    },
+    {
+      "property": "Age",
+      "direction": "Descending"
+    }
+  ],
+  "page": {
+    "pageNumber": 3,
+    "pageSize": 10
+  }
+}

@@ -1,0 +1,37 @@
+﻿{
+  "filter": [
+    [
+      {
+        "property": "Name",
+        "operation": "Eq",
+        "stringValue": "AliceBlue"
+      }
+    ],
+    [
+      {
+        "property": "Red",
+        "operation": "Eq",
+        "stringValue": "0"
+      },
+      {
+        "property": "Blue",
+        "operation": "Eq",
+        "stringValue": "0"
+      }
+    ]
+  ],
+  "sort": [
+    {
+      "property": "Red",
+      "direction": "Ascending"
+    },
+    {
+      "property": "Green",
+      "direction": "Ascending"
+    }
+  ],
+  "page": {
+    "pageNumber": 1,
+    "pageSize": 5
+  }
+}
