@@ -9,13 +9,8 @@ namespace EDennis.NetCore.LinqTools {
 
 
 
-    public class SortExpression<TEntity>: List<SortUnit<TEntity>> 
-        where TEntity: class{
-
-        internal class PropertySelectorAndSortDirection<TKey> {
-            public Expression<Func<TEntity, TKey>> PropertySelector { get; set; }
-            public SortDirection SortDirection { get; set; }
-        }
+    public class SortExpression<TEntity> : List<SortUnit<TEntity>>
+        where TEntity : class, new() {
 
 
         public IOrderedQueryable<TEntity> ApplyTo
@@ -44,22 +39,13 @@ namespace EDennis.NetCore.LinqTools {
             ParameterExpression pe) {
             var type = typeof(TEntity);
             PropertyInfo pi = type.GetProperty(sortUnit.Property);
+
             var propType = pi.PropertyType;
-            
-            switch (propType.ToString()) {
-                case "Int32":
-                    var s1 = GetPropertySelector(sortUnit, pe, default(int));
-                    break;
-                case "Double":
-                    var s2 = GetPropertySelector(sortUnit, pe, default(double));
-                    break;
-            }
-            var propertySelector = GetPropertySelector(sortUnit, pe, val);
-            if (sortUnit.Direction == SortDirection.Descending) {
-                return source.OrderByDescending(propertySelector);
-            } else {
-                return source.OrderBy(propertySelector);
-            }
+
+            if (pi.PropertyType == typeof(int))
+                return SortInt(source, sortUnit, pe);
+
+            return null;
         }
 
 
@@ -68,31 +54,37 @@ namespace EDennis.NetCore.LinqTools {
             ParameterExpression pe) {
             var type = typeof(TEntity);
             PropertyInfo pi = type.GetProperty(sortUnit.Property);
-            var propertySelector = GetPropertySelector(sortUnit, pe, pi.PropertyType);
-            if (sortUnit.Direction == SortDirection.Descending)
-                return source.ThenByDescending(propertySelector);
-            else
-                return source.ThenBy(propertySelector);
-        }
 
+            var propType = pi.PropertyType;
 
-        private Expression<Func<TEntity, TKey>> GetPropertySelector<TKey>(SortUnit<TEntity> orderByExpression, ParameterExpression pe, TKey propType) {
-            var type = typeof(TEntity);
-            PropertyInfo pi = type.GetProperty(orderByExpression.Property);
-            var expr = Expression.Property(pe, pi);
-            //var propertyAccess = Expression.MakeMemberAccess(pe, pi);
-            var selector = Expression.Lambda<Func<TEntity, TKey>>(expr/*propertyAccess*/, pe);
+            if (pi.PropertyType == typeof(int))
+                return SortInt(source, sortUnit, pe);
 
-            //Type delegateType = typeof(Func<,>).MakeGenericType(type, pi.PropertyType);
-            //LambdaExpression lambda = Expression.Lambda(delegateType, propertyAccess, pe);
-            return selector;
-        }
-
-        private static dynamic GetDefault(Type type){
-            if (type.IsValueType) {
-                return Activator.CreateInstance(type);
-            }
             return null;
         }
+
+
+        private IOrderedQueryable<TEntity> SortInt(IQueryable<TEntity> source, SortUnit<TEntity> orderByExpression, ParameterExpression pe) {
+            var type = typeof(TEntity);
+            PropertyInfo pi = type.GetProperty(orderByExpression.Property);
+
+            if (orderByExpression.Direction == SortDirection.Descending) 
+                return source.OrderByDescending(x=> pi.GetValue(x,null));
+            else
+                return source.OrderBy(x => pi.GetValue(x, null));
+        }
+
+
+        private IOrderedQueryable<TEntity> SortInt(IOrderedQueryable<TEntity> source, SortUnit<TEntity> orderByExpression, ParameterExpression pe) {
+            var type = typeof(TEntity);
+            PropertyInfo pi = type.GetProperty(orderByExpression.Property);
+
+            if (orderByExpression.Direction == SortDirection.Descending)
+                return source.ThenByDescending(x => pi.GetValue(x, null));
+            else
+                return source.ThenBy(x => pi.GetValue(x, null));
+        }
+
+
     }
 }

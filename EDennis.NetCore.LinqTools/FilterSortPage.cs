@@ -6,7 +6,7 @@ using System.Text;
 
 namespace EDennis.NetCore.LinqTools {
     public class FilterSortPage<TEntity>
-        where TEntity : class {
+        where TEntity : class, new() {
 
         public FilterExpression<TEntity> Filter { get; set; }
 
