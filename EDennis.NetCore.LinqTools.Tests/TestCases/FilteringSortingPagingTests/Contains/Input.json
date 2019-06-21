@@ -3,20 +3,20 @@
     [
       {
         "property": "Name",
-        "operation": "Eq",
-        "stringValue": "AliceBlue"
+        "operation": "Contains",
+        "stringValue": "Blue"
       }
     ],
     [
       {
         "property": "Red",
-        "operation": "Eq",
-        "stringValue": "0"
+        "operation": "Lt",
+        "stringValue": "50"
       },
       {
-        "property": "Blue",
-        "operation": "Eq",
-        "stringValue": "0"
+        "property": "Green",
+        "operation": "Lt",
+        "stringValue": "50"
       }
     ]
   ],
@@ -31,7 +31,7 @@
     }
   ],
   "page": {
-    "pageNumber": 1,
-    "pageSize": 5
+    "pageNumber": 2,
+    "pageSize": 10
   }
 }
