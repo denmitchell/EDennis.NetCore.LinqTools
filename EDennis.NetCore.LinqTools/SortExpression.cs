@@ -25,46 +25,17 @@ namespace EDennis.NetCore.LinqTools {
             (IQueryable<TEntity> source, ParameterExpression pe) {
             IOrderedQueryable<TEntity> ordered = null;
             if (Count > 0)
-                ordered = AddOrderByExpression(source, this.FirstOrDefault(), pe);
+                ordered = Sort(source, this.FirstOrDefault(), pe);
             var props = this.Skip(1).ToArray();
 
             foreach (var prop in props)
-                ordered = AddOrderByExpression(ordered, prop, pe);
+                ordered = Sort(ordered, prop, pe);
 
             return ordered;
         }
 
-        private IOrderedQueryable<TEntity> AddOrderByExpression(
-            IQueryable<TEntity> source, SortUnit<TEntity> sortUnit,
-            ParameterExpression pe) {
-            var type = typeof(TEntity);
-            PropertyInfo pi = type.GetProperty(sortUnit.Property);
 
-            var propType = pi.PropertyType;
-
-            if (pi.PropertyType == typeof(int))
-                return SortInt(source, sortUnit, pe);
-
-            return null;
-        }
-
-
-        private IOrderedQueryable<TEntity> AddOrderByExpression(IOrderedQueryable<TEntity> source,
-            SortUnit<TEntity> sortUnit,
-            ParameterExpression pe) {
-            var type = typeof(TEntity);
-            PropertyInfo pi = type.GetProperty(sortUnit.Property);
-
-            var propType = pi.PropertyType;
-
-            if (pi.PropertyType == typeof(int))
-                return SortInt(source, sortUnit, pe);
-
-            return null;
-        }
-
-
-        private IOrderedQueryable<TEntity> SortInt(IQueryable<TEntity> source, SortUnit<TEntity> orderByExpression, ParameterExpression pe) {
+        private IOrderedQueryable<TEntity> Sort(IQueryable<TEntity> source, SortUnit<TEntity> orderByExpression, ParameterExpression pe) {
             var type = typeof(TEntity);
             PropertyInfo pi = type.GetProperty(orderByExpression.Property);
 
@@ -75,7 +46,7 @@ namespace EDennis.NetCore.LinqTools {
         }
 
 
-        private IOrderedQueryable<TEntity> SortInt(IOrderedQueryable<TEntity> source, SortUnit<TEntity> orderByExpression, ParameterExpression pe) {
+        private IOrderedQueryable<TEntity> Sort(IOrderedQueryable<TEntity> source, SortUnit<TEntity> orderByExpression, ParameterExpression pe) {
             var type = typeof(TEntity);
             PropertyInfo pi = type.GetProperty(orderByExpression.Property);
 
