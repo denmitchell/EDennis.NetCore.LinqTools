@@ -48,7 +48,7 @@ The specification for filtering, sorting, and paging is represented by a simple,
 }
 ```
 ### Filtering Spec
-The filtering specification is a two-dimensional array of objects, which can be interpreted as a filter table.  Each row in the filter table (an outer array element) represents an intersection (ANDed) over one or more expression units.  Each expression unit consists of a property name, and operation, and a literal value (as a string).  Currently supported operations are: Eq, Lt, Le, Gt, Ge, Contains, StartsWith, and EndsWith. All filter rows are unioned (ORed) to provide the complete filter.  This is analogous to the filtering table in the design mode of a Microsoft Access query.
+The filtering specification is a two-dimensional array of objects, which can be interpreted as a filter table.  Each row in the filter table (an outer array element) represents an intersection (AND-ed) over one or more expression units.  Each expression unit consists of a property name, and operation, and a literal value (as a string).  Currently supported operations are: Eq, Lt, Le, Gt, Ge, Contains, StartsWith, and EndsWith. All filter rows are unioned (OR-ed) to provide the complete filter.  This is analogous to the filtering table in the design mode of a Microsoft Access query.
 
 In the above example, we select all objects where Name = "AliceBlue" or where both Red and Blue properties were equal to zero.  
 
