@@ -6,6 +6,14 @@ using System.Linq.Expressions;
 using System.Text;
 
 namespace EDennis.NetCore.LinqTools {
+
+    /// <summary>
+    /// Applies filtering, sorting, and paging for
+    /// to IEnumerable, IQueryable, and DbSet objects
+    /// using a JSON-friendly spec. See 
+    /// EDennis.NetCore.LinqTools.Tests for examples.
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
     public class FilterSortPage<TEntity>
         where TEntity : class, new() {
 
