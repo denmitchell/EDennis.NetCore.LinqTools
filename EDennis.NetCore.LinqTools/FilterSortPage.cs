@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace EDennis.NetCore.LinqTools {
 
@@ -21,34 +19,58 @@ namespace EDennis.NetCore.LinqTools {
 
         public SortExpression<TEntity> Sort { get; set; }
 
-        public PageExpression Page { get; set; }
+        public PageExpression<TEntity> Page { get; set; }
 
+
+        /// <summary>
+        /// Applies filtering, sorting, and paging
+        /// to a DbSet
+        /// </summary>
+        /// <param name="source">DbSet</param>
+        /// <returns></returns>
         public IQueryable<TEntity> ApplyTo(DbSet<TEntity> source) {
             var query = source as IQueryable<TEntity>;
             return ApplyTo(query);
         }
 
+        /// <summary>
+        /// Applies filtering, sorting, and paging
+        /// to an IEnumerable
+        /// </summary>
+        /// <param name="source">IEnumerable</param>
+        /// <returns></returns>
         public IQueryable<TEntity> ApplyTo(IEnumerable<TEntity> source) {
             var query = source as IQueryable<TEntity>;
             return ApplyTo(query);
         }
 
+
+        /// <summary>
+        /// Applies filtering, sorting, and paging
+        /// to an IQueryable
+        /// </summary>
+        /// <param name="source">IQueryable</param>
+        /// <returns></returns>
         public IQueryable<TEntity> ApplyTo(IQueryable<TEntity> source) {
 
             var query = source;
             var type = typeof(TEntity);
             var pe = Expression.Parameter(type, "e");
 
+            //apply filtering, when needed
             if (Filter != null && Filter.Count > 0)
                 query = Filter.ApplyTo(query, pe);
+
+            //apply sorting, when needed
             if (Sort != null && Sort.Count > 0)
                 query = Sort.ApplyTo(query, pe);
+
+            //apply paging, when needed
             if (Page != null)
                 query = Page.ApplyTo(query);
             return query;
 
         }
-
 
     }
 }

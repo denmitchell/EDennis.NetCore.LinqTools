@@ -1,32 +1,47 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace EDennis.NetCore.LinqTools {
 
-    public enum StringFilterType {
-        StartsWith, EndsWith, Contains
-    }
-
+    /// <summary>
+    /// Represents an atomic unit for filtering,
+    /// where a property value is evaluated against a 
+    /// literal value using one of the defined
+    /// filtering operations.
+    /// </summary>
+    /// <typeparam name="TEntity">The model class</typeparam>
     public class FilterUnit<TEntity>
         where TEntity : class {
         public string Property { get; set; }
         public FilterOperation Operation { get; set; }
         public string StringValue { get; set; }
 
+        /// <summary>
+        /// Returns the Linq expression associated
+        /// with this Filter unit
+        /// </summary>
+        /// <param name="pe">A parameter expression shared by 
+        /// all filter expressions and sorting expression</param>
+        /// <returns></returns>
         public Expression GetExpression(ParameterExpression pe) {
 
             var type = typeof(TEntity);
-            //var pe = Expression.Parameter(type, "e");
 
             var propertyInfo = type.GetProperty(Property);
             if (propertyInfo == null)
                 throw new ArgumentException($"Property \"{Property},\" specified in the filter, does not exist in {typeof(TEntity).Name}");
-            object objVal = Convert.ChangeType(StringValue, propertyInfo.PropertyType);
+
+            //represent the property value as a Member expression
             var left = Expression.Property(pe, type.GetProperty(Property));
+
+            //cast the literal string value to its property type
+            object objVal = Convert.ChangeType(StringValue, propertyInfo.PropertyType);
+
+            //represent the literal value as a Constant expression
             var right = Expression.Constant(objVal);
 
+            //apply the appropriate operation to the expression
+            //and return the result
             switch (Operation) {
                 case FilterOperation.Eq:
                     return Expression.Equal(left, right);
@@ -46,7 +61,8 @@ namespace EDennis.NetCore.LinqTools {
                     return Expression.Call(left, "Contains", Type.EmptyTypes, right);
             }
 
-
+            //if the filter unit isn't able to generate an 
+            //expression, return null
             return null;
         }
 

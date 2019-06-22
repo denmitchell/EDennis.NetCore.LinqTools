@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace EDennis.NetCore.LinqTools {
 
-namespace EDennis.NetCore.LinqTools {
+    /// <summary>
+    /// The direction for the sort
+    /// </summary>
     public enum SortDirection {
         Ascending,
         Descending
