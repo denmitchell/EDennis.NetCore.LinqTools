@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace EDennis.NetCore.LinqTools.Tests {
+namespace EDennis.Samples.ColorsRepo.List {
     public class Color {
         public string Name { get; set; }
         public int Red { get; set; }

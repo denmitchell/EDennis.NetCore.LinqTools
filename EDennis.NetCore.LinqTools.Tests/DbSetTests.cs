@@ -1,4 +1,5 @@
 using EDennis.NetCoreTestingUtilities.Extensions;
+using EDennis.Samples.ColorsRepo.EfCore.Models;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,11 @@ using Xunit;
 using Xunit.Abstractions;
 
 namespace EDennis.NetCore.LinqTools.Tests {
-    public class FilteringSortingPagingTests{
+    public class DbSetTests{
 
         private readonly ITestOutputHelper _output;
 
-        public FilteringSortingPagingTests(ITestOutputHelper output) {
+        public DbSetTests(ITestOutputHelper output) {
             _output = output;
         }
 
@@ -28,14 +29,15 @@ namespace EDennis.NetCore.LinqTools.Tests {
 
             var filterSortPage = JToken.Parse(input).ToObject<FilterSortPage<Color>>();
 
-            var colors = ColorRepo.Colors;
-            var filteredColors = filterSortPage.ApplyTo(colors);
+            using (var context = new ColorDb2Context()) {
+                var colors = context.Colors;
+                var filteredColors = filterSortPage.ApplyTo(colors);
 
-            var filteredColorsJson = JToken.FromObject(filteredColors).ToString();
-            _output.WriteLine(filteredColorsJson);
+                var filteredColorsJson = JToken.FromObject(filteredColors).ToString();
+                _output.WriteLine(filteredColorsJson);
 
-            Assert.True(filteredColors.IsEqualOrWrite(expected,_output));
-
+                Assert.True(filteredColors.IsEqualOrWrite(expected, _output));
+            }
         }
     }
 }

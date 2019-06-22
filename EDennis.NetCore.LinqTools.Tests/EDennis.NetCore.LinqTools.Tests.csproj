@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -18,6 +18,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EDennis.NetCore.LinqTools\EDennis.NetCore.LinqTools.csproj" />
+    <ProjectReference Include="..\EDennis.Samples.ColorsRepo.EfCore\EDennis.Samples.ColorsRepo.EfCore.csproj" />
+    <ProjectReference Include="..\EDennis.Samples.ColorsRepo.List\EDennis.Samples.ColorsRepo.List.csproj" />
   </ItemGroup>
 
   <ItemGroup>

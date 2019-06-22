@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -14,10 +15,19 @@ namespace EDennis.NetCore.LinqTools {
 
         public PageExpression Page { get; set; }
 
+        public IQueryable<TEntity> ApplyTo(DbSet<TEntity> source) {
+            var query = source as IQueryable<TEntity>;
+            return ApplyTo(query);
+        }
 
         public IQueryable<TEntity> ApplyTo(IEnumerable<TEntity> source) {
+            var query = source as IQueryable<TEntity>;
+            return ApplyTo(query);
+        }
 
-            var query = source.AsQueryable();
+        public IQueryable<TEntity> ApplyTo(IQueryable<TEntity> source) {
+
+            var query = source;
             var type = typeof(TEntity);
             var pe = Expression.Parameter(type, "e");
 
