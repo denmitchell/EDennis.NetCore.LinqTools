@@ -30,8 +30,8 @@ namespace EDennis.NetCore.LinqTools.Tests {
             var filterSortPage = JToken.Parse(input).ToObject<FilterSortPage<Color>>();
 
             var colors = ColorRepo.Colors.AsQueryable();
-            var filteredColors = filterSortPage.ApplyTo(colors);
-
+            var filteredColors = filterSortPage.ApplyTo(colors, out int pageCount);
+            Assert.True(pageCount > 1);
             Assert.True(filteredColors.IsEqualOrWrite(expected,_output));
 
         }

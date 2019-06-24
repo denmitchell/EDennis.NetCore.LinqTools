@@ -28,9 +28,9 @@ namespace EDennis.NetCore.LinqTools {
         /// </summary>
         /// <param name="source">DbSet</param>
         /// <returns></returns>
-        public IQueryable<TEntity> ApplyTo(DbSet<TEntity> source) {
+        public IQueryable<TEntity> ApplyTo(DbSet<TEntity> source, out int pageCount) {
             var query = source as IQueryable<TEntity>;
-            return ApplyTo(query);
+            return ApplyTo(query, out pageCount);
         }
 
         /// <summary>
@@ -39,9 +39,9 @@ namespace EDennis.NetCore.LinqTools {
         /// </summary>
         /// <param name="source">IEnumerable</param>
         /// <returns></returns>
-        public IQueryable<TEntity> ApplyTo(IEnumerable<TEntity> source) {
+        public IQueryable<TEntity> ApplyTo(IEnumerable<TEntity> source, out int pageCount) {
             var query = source as IQueryable<TEntity>;
-            return ApplyTo(query);
+            return ApplyTo(query, out pageCount);
         }
 
 
@@ -51,7 +51,7 @@ namespace EDennis.NetCore.LinqTools {
         /// </summary>
         /// <param name="source">IQueryable</param>
         /// <returns></returns>
-        public IQueryable<TEntity> ApplyTo(IQueryable<TEntity> source) {
+        public IQueryable<TEntity> ApplyTo(IQueryable<TEntity> source, out int pageCount) {
 
             var query = source;
             var type = typeof(TEntity);
@@ -68,6 +68,9 @@ namespace EDennis.NetCore.LinqTools {
             //apply paging, when needed
             if (Page != null)
                 query = Page.ApplyTo(query);
+
+            pageCount = Page.PageCount.Value;
+
             return query;
 
         }
