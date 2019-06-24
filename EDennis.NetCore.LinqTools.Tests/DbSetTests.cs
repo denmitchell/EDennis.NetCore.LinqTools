@@ -22,6 +22,7 @@ namespace EDennis.NetCore.LinqTools.Tests {
         [InlineData("TestCases\\FilteringSortingPagingTests\\Eq")]
         [InlineData("TestCases\\FilteringSortingPagingTests\\Contains")]
         [InlineData("TestCases\\FilteringSortingPagingTests\\StartsWith")]
+        [InlineData("TestCases\\FilteringSortingPagingTests\\CommaDelim")]
         public void Test(string folder) {
             var input = File.ReadAllText($"{folder}\\Input.json");
             var expectedJson = File.ReadAllText($"{folder}\\Expected.json");

@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 
 namespace EDennis.NetCore.LinqTools {
-    
+
     /// <summary>
     /// Holds a filtering specification and 
     /// provides a method to apply filtering to
@@ -15,8 +15,8 @@ namespace EDennis.NetCore.LinqTools {
     /// objects.
     /// </summary>
     /// <typeparam name="TEntity">The model class</typeparam>
-    public class FilterExpression<TEntity> : List<FilterRow<TEntity>> 
-        where TEntity: class {
+    public class FilterExpression<TEntity> : List<FilterRow<TEntity>>
+        where TEntity : class {
 
 
         /// <summary>
@@ -37,12 +37,18 @@ namespace EDennis.NetCore.LinqTools {
         /// <param name="pe">The parameter expression shared by 
         /// all filter expressions and sort expressions</param>
         /// <returns></returns>
-        protected Expression GetExpression(ParameterExpression pe) {            
-                Expression or = Expression.Constant(false);
-                foreach (var e in this) {
-                    or = Expression.Or(or, e.GetExpression(pe));
-                }
-                return or;
+        protected Expression GetExpression(ParameterExpression pe) {
+            Expression or = null; //= Expression.Constant(false);
+
+            if (Count > 0)
+                or = this.FirstOrDefault().GetExpression(pe);
+
+            //handle all other units
+            var exprs = this.Skip(1).ToArray();
+            foreach (var expr in exprs) {
+                or = Expression.Or(or, expr.GetExpression(pe));
+            }
+            return or;
         }
 
         /// <summary>
@@ -53,9 +59,9 @@ namespace EDennis.NetCore.LinqTools {
         /// all filter expressions and sort expressions</param>
         /// <returns></returns>
         protected Expression<Func<TEntity, bool>> GetLambdaExpression(ParameterExpression pe) {
-                var type = typeof(TEntity);
-                var expr = Expression.Lambda<Func<TEntity, bool>>(GetExpression(pe), pe);
-                return expr;
+            var type = typeof(TEntity);
+            var expr = Expression.Lambda<Func<TEntity, bool>>(GetExpression(pe), pe);
+            return expr;
         }
 
     }

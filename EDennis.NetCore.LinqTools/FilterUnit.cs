@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace EDennis.NetCore.LinqTools {
@@ -24,6 +25,21 @@ namespace EDennis.NetCore.LinqTools {
         /// all filter expressions and sorting expression</param>
         /// <returns></returns>
         public Expression GetExpression(ParameterExpression pe) {
+
+            //handle comma-delimited list
+            if (StringValue.Contains(",")) {
+                var row = new FilterRow<TEntity>();
+                row.AddRange(
+                    StringValue.Split(',').Select(x =>
+                    new FilterUnit<TEntity> {
+                        Property = Property,
+                        Operation = Operation,
+                        StringValue = x
+                    }
+                    ).ToArray()
+                );
+                return row.GetExpression(pe, BooleanOperation.Or);
+            }
 
             var type = typeof(TEntity);
 
