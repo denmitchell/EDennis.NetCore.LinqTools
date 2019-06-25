@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Dynamically applies filtering, sorting, and paging to IEnumerable, IQueryable, and DbSet objects using a JSON-friendly spec. See EDennis.NetCore.LinqTools.Tests for examples.</Description>
-    <PackageReleaseNotes>Added out parameter "pageCount" to FilterSortPage ApplyTo methods</PackageReleaseNotes>
+    <PackageReleaseNotes>Added no tracking for better performance</PackageReleaseNotes>
     <Copyright>Dennis Mitchell @2019</Copyright>
     <Authors>Dennis Mitchell</Authors>
     <Company>edennis.com</Company>
@@ -14,8 +14,9 @@
     <RepositoryUrl>https://github.com/denmitchell/EDennis.NetCore.LinqTools</RepositoryUrl>
     <RepositoryType>github</RepositoryType>
     <PackageTags>Dynamic Linq</PackageTags>
-    <Version>1.2.0</Version>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <Version>1.2.1</Version>
+    <AssemblyVersion>1.2.1.0</AssemblyVersion>
+    <FileVersion>1.2.1.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

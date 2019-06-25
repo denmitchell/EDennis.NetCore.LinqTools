@@ -53,7 +53,9 @@ namespace EDennis.NetCore.LinqTools {
         /// <returns></returns>
         public IQueryable<TEntity> ApplyTo(IQueryable<TEntity> source, out int pageCount) {
 
-            var query = source;
+            //add no tracking for better performance
+            var query = source.AsNoTracking();
+
             var type = typeof(TEntity);
             var pe = Expression.Parameter(type, "e");
 
@@ -66,10 +68,12 @@ namespace EDennis.NetCore.LinqTools {
                 query = Sort.ApplyTo(query, pe);
 
             //apply paging, when needed
-            if (Page != null)
+            if (Page != null) {
                 query = Page.ApplyTo(query);
-
-            pageCount = Page.PageCount.Value;
+                pageCount = Page.PageCount.Value;
+            } else {
+                pageCount = 1;
+            }
 
             return query;
 
