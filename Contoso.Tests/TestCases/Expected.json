@@ -1,0 +1,20 @@
+﻿[
+  {
+    "LastName": "Anand",
+    "FirstMidName": "Arturo",
+    "EnrollmentDate": "2013-09-01T00:00:00",
+    "ID": 3
+  },
+  {
+    "LastName": "Norman",
+    "FirstMidName": "Laura",
+    "EnrollmentDate": "2013-09-01T00:00:00",
+    "ID": 7
+  },
+  {
+    "LastName": "Li",
+    "FirstMidName": "Yan",
+    "EnrollmentDate": "2012-09-01T00:00:00",
+    "ID": 5
+  }
+]

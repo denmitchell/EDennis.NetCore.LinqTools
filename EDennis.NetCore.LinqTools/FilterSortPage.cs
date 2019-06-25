@@ -22,6 +22,50 @@ namespace EDennis.NetCore.LinqTools {
         public PageExpression<TEntity> Page { get; set; }
 
 
+        public FilterSortPage() { }
+
+        /// <summary>
+        /// Construct a new FilterSortPage object, using
+        /// simple, parameters from a query string, as 
+        /// is done in Microsoft's Contoso University example
+        /// 
+        /// NOTE: For convenience, FilterSortPage can be extended
+        /// such that the subclass hard-codes the sortUnitMapping,
+        /// propertiesToSearch, and pageSize.
+        /// </summary>
+        public FilterSortPage(
+            string sortOrder, Dictionary<string,SortUnit<TEntity>> sortUnitMapping,
+            string searchString, string[] propertiesToSearch,
+            int? pageNumber, int? pageSize) {
+
+            if (searchString != null) {
+                Filter = new FilterExpression<TEntity>();
+                foreach (var prop in propertiesToSearch) {
+                    var row = new FilterRow<TEntity> {
+                    new FilterUnit<TEntity> {
+                        Property = prop,
+                        Operation = FilterOperation.Contains,
+                        StringValue = searchString
+                    }
+                };
+                    Filter.Add(row);
+                }
+            }
+            if (sortOrder != null) {
+                var sortUnit = sortUnitMapping[sortOrder];
+                Sort = new SortExpression<TEntity> {
+                    sortUnit
+                };
+            }
+            if(pageNumber != null) {
+                Page = new PageExpression<TEntity> {
+                    PageNumber = pageNumber.Value,
+                    PageSize = pageSize.Value
+                };
+            }
+        }
+
+
         /// <summary>
         /// Applies filtering, sorting, and paging
         /// to a DbSet
@@ -40,7 +84,7 @@ namespace EDennis.NetCore.LinqTools {
         /// <param name="source">IEnumerable</param>
         /// <returns></returns>
         public IQueryable<TEntity> ApplyTo(IEnumerable<TEntity> source, out int pageCount) {
-            var query = source as IQueryable<TEntity>;
+            var query = source.AsQueryable();
             return ApplyTo(query, out pageCount);
         }
 
@@ -78,6 +122,7 @@ namespace EDennis.NetCore.LinqTools {
             return query;
 
         }
+
 
     }
 }
