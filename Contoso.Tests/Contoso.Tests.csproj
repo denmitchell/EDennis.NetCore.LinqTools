@@ -20,4 +20,10 @@
     <ProjectReference Include="..\EDennis.NetCore.LinqTools\EDennis.NetCore.LinqTools.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="TestCases\Expected.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

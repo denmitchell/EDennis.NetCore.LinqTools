@@ -32,6 +32,14 @@ namespace Contoso.Tests {
                     pageNumber, 3) { }
         }
 
+        internal class FilterSortPageContosoStudents2 : FilterSortPage<Student> {
+            public FilterSortPageContosoStudents2(
+                string sortOrder = "Name", string searchString = null, int? pageNumber = null) :
+                base(sortOrder,
+                    searchString,
+                    new string[] { "LastName", "FirstMidName" },
+                    pageNumber, 3) { }
+        }
 
         [Theory]
         [InlineData("date_desc","an",1)]
@@ -46,5 +54,23 @@ namespace Contoso.Tests {
             var expected = JToken.Parse(expectedJson).ToObject<List<Student>>();
             Assert.True(filteredList.IsEqualOrWrite(expected,_output));
         }
+
+        [Theory]
+        [InlineData("EnrollmentDate_desc", "an", 1)]
+        public void Test2(string sortOrder, string searchString, int? pageNumber) {
+            var fsp = new FilterSortPageContosoStudents2(sortOrder, searchString, pageNumber);
+            var filteredList = fsp.ApplyTo(StudentRepo.Students, out int pageCount).ToList();
+
+            var filteredStudentsJson = JToken.FromObject(filteredList).ToString();
+            _output.WriteLine(filteredStudentsJson);
+
+            var expectedJson = File.ReadAllText("TestCases\\Expected.json");
+            var expected = JToken.Parse(expectedJson).ToObject<List<Student>>();
+            Assert.True(filteredList.IsEqualOrWrite(expected, _output));
+        }
+
+
+
     }
 }
+
