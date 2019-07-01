@@ -1,5 +1,5 @@
 # EDennis.NetCore.LinqTools
-Dynamically applies filtering, sorting, and paging to IEnumerable, IQueryable, and DbSet objects using a JSON-friendly spec. 
+Dynamically applies filtering, sorting, and paging to IEnumerable, IQueryable, and DbSet objects using either a JSON-friendly spec or a query-string spec. 
 
 ## The Full Filtering/Sorting/Paging Spec
 The full specification for filtering, sorting, and paging is represented by a simple, JSON-friendly hierarchical structure.  The library also supports a more simplified spec for query-string processing (see below).
