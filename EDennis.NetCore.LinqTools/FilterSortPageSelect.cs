@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -13,16 +14,73 @@ namespace EDennis.NetCore.LinqTools {
     /// EDennis.NetCore.LinqTools.Tests for examples.
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    public class FilterSortPageSelect<TEntity>
+    public class FilterSortPageSelect<TEntity> : FilterSortPage<TEntity>
         where TEntity : class, new() {
 
-        public FilterExpression<TEntity> Filter { get; set; }
-
-        public SortExpression<TEntity> Sort { get; set; }
-
-        public PageExpression<TEntity> Page { get; set; }
-
         public SelectExpression<TEntity> Select { get; set; }
+
+        public FilterSortPageSelect() { }
+
+        /// <summary>
+        /// Construct a new FilterSortPage object, using
+        /// simple, parameters from a query string, as 
+        /// is done in Microsoft's Contoso University example
+        /// 
+        /// NOTE: For convenience, FilterSortPage can be extended
+        /// such that the subclass hard-codes the sortUnitMapping,
+        /// propertiesToSearch, and pageSize.
+        /// </summary>
+        public FilterSortPageSelect(
+            string[] properties,
+            string sortOrder, Dictionary<string, SortUnit<TEntity>> sortUnitMapping,
+            string searchString, string[] propertiesToSearch,
+            int? pageNumber, int? pageSize) {
+
+            BuildFilter(searchString, propertiesToSearch);
+            BuildSort(sortOrder, sortUnitMapping);
+            BuildPage(pageNumber, pageSize);
+            BuildSelect(properties);
+        }
+
+
+        /// <summary>
+        /// Construct a new FilterSortPage object, using
+        /// simple, parameters from a query string, as 
+        /// is done in Microsoft's Contoso University example.
+        /// This overload assumes that a descending sort
+        /// direction is specified with "_desc" or " desc" as
+        /// a suffix to the sort order.
+        /// 
+        /// NOTE: For convenience, FilterSortPage can be extended
+        /// such that the subclass hard-codes propertiesToSearch 
+        /// and pageSize.
+        /// </summary>
+        public FilterSortPageSelect(
+            string[] properties,
+            string sortOrder,
+            string searchString, string[] propertiesToSearch,
+            int? pageNumber, int? pageSize) {
+
+            BuildFilter(searchString, propertiesToSearch);
+            BuildSort(sortOrder);
+            BuildPage(pageNumber, pageSize);
+            BuildSelect(properties);
+        }
+
+
+        /// <summary>
+        /// Builds a SelectExpression object from
+        /// an array of properties
+        /// </summary>
+        /// <param name="properties"></param>
+        private void BuildSelect(string[] properties) {
+            Select = new SelectExpression<TEntity>();
+            Select.AddRange(properties);
+        }
+
+
+
+
 
         /// <summary>
         /// Applies filtering, sorting, paging

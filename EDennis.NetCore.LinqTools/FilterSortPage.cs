@@ -23,8 +23,6 @@ namespace EDennis.NetCore.LinqTools {
 
         public PageExpression<TEntity> Page { get; set; }
 
-        public SelectExpression<TEntity> Select { get; set; }
-
 
         public FilterSortPage() { }
 
@@ -135,7 +133,7 @@ namespace EDennis.NetCore.LinqTools {
         /// </summary>
         /// <param name="filter"></param>
         /// <param name="props"></param>
-        private void BuildFilter(string filter, string[] props) {
+        internal void BuildFilter(string filter, string[] props) {
             if (filter != null) {
                 Filter = new FilterExpression<TEntity>();
                 foreach (var prop in props) {
@@ -158,7 +156,7 @@ namespace EDennis.NetCore.LinqTools {
         /// </summary>
         /// <param name="sortOrder"></param>
         /// <param name="sortUnitMapping"></param>
-        private void BuildSort(string sortOrder, Dictionary<string, SortUnit<TEntity>> sortUnitMapping) {
+        internal void BuildSort(string sortOrder, Dictionary<string, SortUnit<TEntity>> sortUnitMapping) {
             if (sortOrder != null) {
                 var sortUnit = sortUnitMapping[sortOrder];
                 Sort = new SortExpression<TEntity> {
@@ -175,7 +173,7 @@ namespace EDennis.NetCore.LinqTools {
         /// sorts.
         /// </summary>
         /// <param name="sortOrder"></param>
-        private void BuildSort(string sortOrder) {
+        internal void BuildSort(string sortOrder) {
             if (sortOrder != null) {
 
                 var components = sortOrder.Split(' ', '_');
@@ -198,7 +196,7 @@ namespace EDennis.NetCore.LinqTools {
         /// </summary>
         /// <param name="pageNumber"></param>
         /// <param name="pageSize"></param>
-        private void BuildPage(int? pageNumber, int? pageSize) {
+        internal void BuildPage(int? pageNumber, int? pageSize) {
             if (pageNumber != null) {
                 Page = new PageExpression<TEntity> {
                     PageNumber = pageNumber.Value,
