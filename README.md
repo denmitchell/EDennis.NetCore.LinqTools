@@ -44,7 +44,8 @@ The full specification for filtering, sorting, and paging is represented by a si
    {
       pageNumber: 2,
       pageSize: 3
-   }
+   },
+   select: [ "Name", "DateCreated"]
 }
 ```
 ### Filtering Spec
@@ -62,8 +63,14 @@ The paging specification is a single object consisting of a page number and page
 
 In the above example, we return the second page, where each page holds three objects.
 
+### Selecting Spec
+The optional selecting specification is a single array consisting of property names to include.
+
+In the above example, we select the Name and DateCreated properties.  Note: selection will return an IQueryable whose member type is anonymous, rather than an IQueryable of the source element type.
+
+
 ## The Simplified Filtering/Sorting/Paging Spec Using a Query String
 The library also supports a Contoso-University-Project-inspired spec for query-string processing of filtering, sorting, and paging.  Filtering is specified by a _searchString_ query parameter (which uses the Contains operation).  Sorting is specified by a _sortOrder_ query parameter.  The value of the sortOrder parameter is the name of the field to sort on, with an optional "\_desc" suffix.  (There is a constructor overload for mapping sortOrder parameter values to field names and sort direction, just in case this kind of flexibility is required.)  Paging is accomplished with _pageNumber_ and _pageSize_ query parameters. 
 
 ## Other Examples
-The test project in this solution includes examples of filtering, sorting, and paging, using the full (JSON body) spec and the simplified (query string) spec.
+The test project in this solution includes examples of filtering, sorting, and paging (and optional selecting) using the full (JSON body) spec and filtering, sorting, and paging using the simplified (query string) spec.
