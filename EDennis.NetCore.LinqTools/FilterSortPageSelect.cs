@@ -21,15 +21,15 @@ namespace EDennis.NetCore.LinqTools {
 
         public FilterSortPageSelect() { }
 
+
         /// <summary>
-        /// Construct a new FilterSortPage object, using
+        /// Construct a new FilterSortPageSelect object, using
         /// simple, parameters from a query string, as 
         /// is done in Microsoft's Contoso University example
         /// 
-        /// NOTE: For convenience, FilterSortPage can be extended
-        /// such that the subclass hard-codes the sortUnitMapping,
-        /// propertiesToSearch, and pageSize.
-        /// </summary>
+        /// NOTE: For convenience, FilterSortPageSelect can be extended
+        /// such that the subclass hard-codes properties, 
+        /// the sortUnitMapping, propertiesToSearch, and pageSize.
         public FilterSortPageSelect(
             string[] properties,
             string sortOrder, Dictionary<string, SortUnit<TEntity>> sortUnitMapping,
@@ -44,7 +44,7 @@ namespace EDennis.NetCore.LinqTools {
 
 
         /// <summary>
-        /// Construct a new FilterSortPage object, using
+        /// Construct a new FilterSortPageSelect object, using
         /// simple, parameters from a query string, as 
         /// is done in Microsoft's Contoso University example.
         /// This overload assumes that a descending sort
@@ -52,8 +52,8 @@ namespace EDennis.NetCore.LinqTools {
         /// a suffix to the sort order.
         /// 
         /// NOTE: For convenience, FilterSortPage can be extended
-        /// such that the subclass hard-codes propertiesToSearch 
-        /// and pageSize.
+        /// such that the subclass hard-codes properties, 
+        /// propertiesToSearch and pageSize.
         /// </summary>
         public FilterSortPageSelect(
             string[] properties,
@@ -67,6 +67,58 @@ namespace EDennis.NetCore.LinqTools {
             BuildSelect(properties);
         }
 
+        /// <summary>
+        /// Construct a new FilterSortPageSelect object, using
+        /// simple, parameters from a query string, as 
+        /// is done in Microsoft's Contoso University example.
+        /// 
+        /// NOTE: this overload accepts a comma-delimited list
+        /// of properties, which can be passed via the query string,
+        /// as is done with OData
+        /// 
+        /// NOTE: For convenience, FilterSortPageSelect can be extended
+        /// such that the subclass hard-codes properties, 
+        /// the sortUnitMapping, propertiesToSearch, and pageSize.
+        public FilterSortPageSelect(
+            string properties,
+            string sortOrder, Dictionary<string, SortUnit<TEntity>> sortUnitMapping,
+            string searchString, string[] propertiesToSearch,
+            int? pageNumber, int? pageSize) {
+
+            BuildFilter(searchString, propertiesToSearch);
+            BuildSort(sortOrder, sortUnitMapping);
+            BuildPage(pageNumber, pageSize);
+            BuildSelect(properties);
+        }
+
+
+        /// <summary>
+        /// Construct a new FilterSortPageSelect object, using
+        /// simple, parameters from a query string, as 
+        /// is done in Microsoft's Contoso University example.
+        /// This overload assumes that a descending sort
+        /// direction is specified with "_desc" or " desc" as
+        /// a suffix to the sort order.
+        /// 
+        /// NOTE: this overload accepts a comma-delimited list
+        /// of properties, which can be passed via the query string,
+        /// as is done with OData
+        /// 
+        /// NOTE: For convenience, FilterSortPage can be extended
+        /// such that the subclass hard-codes properties, 
+        /// propertiesToSearch and pageSize.
+        /// </summary>
+        public FilterSortPageSelect(
+            string properties,
+            string sortOrder,
+            string searchString, string[] propertiesToSearch,
+            int? pageNumber, int? pageSize) {
+
+            BuildFilter(searchString, propertiesToSearch);
+            BuildSort(sortOrder);
+            BuildPage(pageNumber, pageSize);
+            BuildSelect(properties);
+        }
 
         /// <summary>
         /// Builds a SelectExpression object from
@@ -78,6 +130,15 @@ namespace EDennis.NetCore.LinqTools {
             Select.AddRange(properties);
         }
 
+        /// <summary>
+        /// Builds a SelectExpression object from
+        /// a comma-delimited list of properties
+        /// </summary>
+        /// <param name="properties"></param>
+        private void BuildSelect(string properties) {
+            Select = new SelectExpression<TEntity>();
+            Select.AddRange(properties.Split());
+        }
 
 
 

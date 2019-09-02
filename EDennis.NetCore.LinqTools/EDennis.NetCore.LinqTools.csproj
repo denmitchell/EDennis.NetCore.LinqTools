@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Dynamically applies filtering, sorting, paging, and selecting (projection) to IEnumerable, IQueryable, and DbSet objects using a JSON-friendly spec. See EDennis.NetCore.LinqTools.Tests for examples.</Description>
-    <PackageReleaseNotes>Adapted https://github.com/dotlattice/LatticeUtils to add selection of properties (projection) to options.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added support for selecting in the URL (similar to OData)</PackageReleaseNotes>
     <Copyright>Dennis Mitchell @2019</Copyright>
     <Authors>Dennis Mitchell</Authors>
     <Company>edennis.com</Company>
@@ -14,9 +14,9 @@
     <RepositoryUrl>https://github.com/denmitchell/EDennis.NetCore.LinqTools</RepositoryUrl>
     <RepositoryType>github</RepositoryType>
     <PackageTags>Dynamic Linq</PackageTags>
-    <Version>1.3.0</Version>
-    <AssemblyVersion>1.3.0.0</AssemblyVersion>
-    <FileVersion>1.3.0.0</FileVersion>
+    <Version>1.3.2</Version>
+    <AssemblyVersion>1.3.2.0</AssemblyVersion>
+    <FileVersion>1.3.2.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
