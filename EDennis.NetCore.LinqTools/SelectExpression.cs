@@ -25,7 +25,7 @@ namespace EDennis.NetCore.LinqTools {
         /// <param name="pe">The parameter expression shared by 
         /// all filter expressions and sort expressions</param>
         /// <returns></returns>
-        private IQueryable<object> Apply(IQueryable<TEntity> source, ParameterExpression pe) {
+        public IQueryable<object> ApplyTo(IQueryable<TEntity> source, ParameterExpression pe) {
             var type = typeof(TEntity);
 
             Expression selectExpression = pe;

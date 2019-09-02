@@ -6,14 +6,13 @@ using System.Linq.Expressions;
 namespace EDennis.NetCore.LinqTools {
 
     /// <summary>
-    /// Applies filtering, sorting, paging, and
-    /// selecting (property projection) for
+    /// Applies filtering, sorting, and paging for
     /// to IEnumerable, IQueryable, and DbSet objects
     /// using a JSON-friendly spec. See 
     /// EDennis.NetCore.LinqTools.Tests for examples.
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    public class FilterSortPageSelect<TEntity>
+    public class FilterSortPage<TEntity>
         where TEntity : class, new() {
 
         public FilterExpression<TEntity> Filter { get; set; }
@@ -24,36 +23,37 @@ namespace EDennis.NetCore.LinqTools {
 
         public SelectExpression<TEntity> Select { get; set; }
 
+
         /// <summary>
-        /// Applies filtering, sorting, paging
-        /// and selecting to a DbSet
+        /// Applies filtering, sorting, and paging
+        /// to a DbSet
         /// </summary>
         /// <param name="source">DbSet</param>
         /// <returns></returns>
-        public IQueryable<object> ApplyTo(DbSet<TEntity> source) {
+        public IQueryable<TEntity> ApplyTo(DbSet<TEntity> source) {
             var query = source as IQueryable<TEntity>;
             return ApplyTo(query);
         }
 
         /// <summary>
-        /// Applies filtering, sorting, paging
-        /// and selecting to an IEnumerable
+        /// Applies filtering, sorting, and paging
+        /// to an IEnumerable
         /// </summary>
         /// <param name="source">IEnumerable</param>
         /// <returns></returns>
-        public IQueryable<object> ApplyTo(IEnumerable<TEntity> source) {
+        public IQueryable<TEntity> ApplyTo(IEnumerable<TEntity> source) {
             var query = source as IQueryable<TEntity>;
             return ApplyTo(query);
         }
 
 
         /// <summary>
-        /// Applies filtering, sorting, paging
-        /// and selecting to an IQueryable
+        /// Applies filtering, sorting, and paging
+        /// to an IQueryable
         /// </summary>
         /// <param name="source">IQueryable</param>
         /// <returns></returns>
-        public IQueryable<object> ApplyTo(IQueryable<TEntity> source) {
+        public IQueryable<TEntity> ApplyTo(IQueryable<TEntity> source) {
 
             var query = source;
             var type = typeof(TEntity);
@@ -70,11 +70,6 @@ namespace EDennis.NetCore.LinqTools {
             //apply paging, when needed
             if (Page != null)
                 query = Page.ApplyTo(query);
-
-            //apply selecting, when needed
-            if (Select != null)
-                return Select.ApplyTo(query, pe);
-
             return query;
 
         }
