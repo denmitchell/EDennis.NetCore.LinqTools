@@ -1,0 +1,152 @@
+﻿[
+  {
+    "Name": "Black",
+    "Red": 0,
+    "Green": 0
+  },
+  {
+    "Name": "DarkBlue",
+    "Red": 0,
+    "Green": 0
+  },
+  {
+    "Name": "DarkCyan",
+    "Red": 0,
+    "Green": 139
+  },
+  {
+    "Name": "DarkGoldenRod",
+    "Red": 184,
+    "Green": 134
+  },
+  {
+    "Name": "DarkGray",
+    "Red": 169,
+    "Green": 169
+  },
+  {
+    "Name": "DarkGreen",
+    "Red": 0,
+    "Green": 100
+  },
+  {
+    "Name": "DarkGrey",
+    "Red": 169,
+    "Green": 169
+  },
+  {
+    "Name": "DarkKhaki",
+    "Red": 189,
+    "Green": 183
+  },
+  {
+    "Name": "DarkMagenta",
+    "Red": 139,
+    "Green": 0
+  },
+  {
+    "Name": "DarkOliveGreen",
+    "Red": 85,
+    "Green": 107
+  },
+  {
+    "Name": "DarkOrange",
+    "Red": 255,
+    "Green": 140
+  },
+  {
+    "Name": "DarkOrchid",
+    "Red": 153,
+    "Green": 50
+  },
+  {
+    "Name": "DarkRed",
+    "Red": 139,
+    "Green": 0
+ },
+  {
+    "Name": "DarkSalmon",
+    "Red": 233,
+    "Green": 150
+  },
+  {
+    "Name": "DarkSeaGreen",
+    "Red": 143,
+    "Green": 188
+  },
+  {
+    "Name": "DarkSlateBlue",
+    "Red": 72,
+    "Green": 61
+  },
+  {
+    "Name": "DarkSlateGray",
+    "Red": 47,
+    "Green": 79
+  },
+  {
+    "Name": "DarkSlateGrey",
+    "Red": 47,
+    "Green": 79
+  },
+  {
+    "Name": "DarkTurquoise",
+    "Red": 0,
+    "Green": 206
+  },
+  {
+    "Name": "DarkViolet",
+    "Red": 148,
+    "Green": 0
+  },
+  {
+    "Name": "LightBlue",
+    "Red": 173,
+    "Green": 216
+  },
+  {
+    "Name": "LightCoral",
+    "Red": 240,
+    "Green": 128
+  },
+  {
+    "Name": "LightCyan",
+    "Red": 224,
+    "Green": 255
+  },
+  {
+    "Name": "LightGoldenRodYellow",
+    "Red": 250,
+    "Green": 250
+  },
+  {
+    "Name": "LightGray",
+    "Red": 211,
+    "Green": 211
+  },
+  {
+    "Name": "LightGreen",
+    "Red": 144,
+    "Green": 238
+  },
+  {
+    "Name": "LightGrey",
+    "Red": 211,
+    "Green": 211
+  },
+  {
+    "Name": "LightPink",
+    "Red": 255,
+    "Green": 182
+  },
+  {
+    "Name": "LightSalmon",
+    "Red": 255,
+    "Green": 160
+  },
+  {
+    "Name": "LightSeaGreen",
+    "Red": 32,
+    "Green": 178
+  }
+]

@@ -1,0 +1,39 @@
+﻿{
+  "select":  ["Green","Red","Name","DateCreated","Blue"],
+  "filter": [
+    [
+      {
+        "property": "Name",
+        "operation": "StartsWith",
+        "stringValue": "Light"
+      }
+    ],
+    [
+      {
+        "property": "Red",
+        "operation": "Gt",
+        "stringValue": "220"
+      },
+      {
+        "property": "Green",
+        "operation": "Gt",
+        "stringValue": "220"
+      },
+      {
+        "property": "Blue",
+        "operation": "Gt",
+        "stringValue": "220"
+      }
+    ]
+  ],
+  "sort": [
+    {
+      "property": "Name",
+      "direction": "Ascending"
+    }
+  ],
+  "page": {
+    "pageNumber": 1,
+    "pageSize": 25
+  }
+}

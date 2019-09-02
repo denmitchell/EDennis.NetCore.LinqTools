@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -17,29 +18,64 @@ namespace EDennis.NetCore.LinqTools {
         where TEntity : class {
 
         /// <summary>
-        /// Performs a sort on an unordered IQueryable
-        /// (the first sort unit)
+        /// from https://github.com/dotlattice/LatticeUtils
         /// </summary>
+        /// <typeparam name="TEntity">Source Object Type</typeparam>
         /// <param name="source">an IQueryable</param>
-        /// <param name="sortUnit">the sort spec for a specific property</param>
-        /// <param name="pe">The parameter expression shared by 
-        /// all filter expressions and sort expressions</param>
+        /// <param name="propertyNames"></param>
         /// <returns></returns>
-        public IQueryable<object> ApplyTo(IQueryable<TEntity> source, ParameterExpression pe) {
-            var type = typeof(TEntity);
+        public IQueryable ApplyTo(IQueryable<TEntity> source, ParameterExpression pe) {
+            var properties = typeof(TEntity).GetProperties().Where(p => Contains(p.Name));
 
-            Expression selectExpression = pe;
+            var propertyExpressions = properties.Select(p => Expression.Property(pe, p));
 
-            foreach (string property in this) {
-                var body = Expression.PropertyOrField(pe, property);
-                selectExpression = Expression.Property(selectExpression, property);
-            }
+            var anonymousType = AnonymousTypeUtils.CreateType(properties.ToDictionary(p => p.Name, p => p.PropertyType));
+            var anonymousTypeConstructor = anonymousType.GetConstructors().Single();
+            var anonymousTypeMembers = anonymousType.GetProperties().Cast<MemberInfo>().ToArray();
 
-            var assignments = type.GetFields().Select((prop, i) => Expression.Bind(prop, selectExpression));
-            var lambdaExpression = Expression.Lambda<Func<TEntity, object>>(Expression.MemberInit(Expression.New(type.GetConstructors()[0]), assignments), pe);
+            // It's important to include the anonymous type members in the New expression, otherwise EntityFramework 
+            // won't recognize this as the constructor of an anonymous type.
+            var anonymousTypeNewExpression = Expression.New(anonymousTypeConstructor, propertyExpressions, anonymousTypeMembers);
 
-            return source.Select(lambdaExpression);
+            var selectLambdaMethod = GetExpressionLambdaMethod(pe.Type, anonymousType);
+            var selectBodyLambdaParameters = new object[] { anonymousTypeNewExpression, new[] { pe } };
+            var selectBodyLambdaExpression = (LambdaExpression)selectLambdaMethod.Invoke(null, selectBodyLambdaParameters);
+
+            var selectMethod = GetQueryableSelectMethod(typeof(TEntity), anonymousType);
+            var selectedQueryable = selectMethod.Invoke(null, new object[] { source, selectBodyLambdaExpression }) as IQueryable;
+            return selectedQueryable;
+        }
+
+
+        /// <summary>
+        /// from https://github.com/dotlattice/LatticeUtils
+        /// </summary>
+        private static MethodInfo GetExpressionLambdaMethod(Type entityType, Type funcReturnType) {
+            var prototypeLambdaMethod = GetStaticMethod(() => System.Linq.Expressions.Expression.Lambda<Func<object, object>>(default(Expression), default(IEnumerable<ParameterExpression>)));
+            var lambdaGenericMethodDefinition = prototypeLambdaMethod.GetGenericMethodDefinition();
+            var funcType = typeof(Func<,>).MakeGenericType(entityType, funcReturnType);
+            var lambdaMethod = lambdaGenericMethodDefinition.MakeGenericMethod(funcType);
+            return lambdaMethod;
+        }
+
+        /// <summary>
+        /// from https://github.com/dotlattice/LatticeUtils
+        /// </summary>
+        private static MethodInfo GetQueryableSelectMethod(Type entityType, Type returnType) {
+            var prototypeSelectMethod = GetStaticMethod(() => Queryable.Select(default(IQueryable<object>), default(Expression<Func<object, object>>)));
+            var selectGenericMethodDefinition = prototypeSelectMethod.GetGenericMethodDefinition();
+            return selectGenericMethodDefinition.MakeGenericMethod(new[] { entityType, returnType });
+        }
+
+        /// <summary>
+        /// from https://github.com/dotlattice/LatticeUtils
+        /// </summary>
+        public static MethodInfo GetStaticMethod(Expression<Action> expression) {
+            var lambda = expression as LambdaExpression;
+            var methodCallExpression = lambda.Body as MethodCallExpression;
+            return methodCallExpression.Method;
         }
 
     }
+
 }

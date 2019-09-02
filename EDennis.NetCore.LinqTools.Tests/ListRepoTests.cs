@@ -8,7 +8,7 @@ using Xunit;
 using Xunit.Abstractions;
 
 namespace EDennis.NetCore.LinqTools.Tests {
-    public class ListRepoTests{
+    public class ListRepoTests {
 
         private readonly ITestOutputHelper _output;
 
@@ -22,18 +22,44 @@ namespace EDennis.NetCore.LinqTools.Tests {
         [InlineData("TestCases\\FilteringSortingPagingTests\\Contains")]
         [InlineData("TestCases\\FilteringSortingPagingTests\\StartsWith")]
         [InlineData("TestCases\\FilteringSortingPagingTests\\CommaDelim")]
-        public void Test(string folder) {
+        public void TestFSP(string folder) {
             var input = File.ReadAllText($"{folder}\\Input.json");
             var expectedJson = File.ReadAllText($"{folder}\\Expected.json");
-            var expected = JToken.Parse(expectedJson).ToObject<List<Color>>();
 
-            var filterSortPage = JToken.Parse(input).ToObject<FilterSortPage<Color>>();
+            var filterSortPageSelect = JToken.Parse(input).ToObject<FilterSortPageSelect<Color>>();
 
             var colors = ColorRepo.Colors.AsQueryable();
-            var filteredColors = filterSortPage.ApplyTo(colors);
+            var filteredColors = filterSortPageSelect.ApplyTo(colors);
 
-            Assert.True(filteredColors.IsEqualOrWrite(expected,_output));
+            var expected = JToken.Parse(expectedJson).ToObject(filteredColors.GetType());
+
+            Assert.True(filteredColors.IsEqualOrWrite(expected, _output));
 
         }
+
+        [Theory]
+        [InlineData("TestCases\\FilteringSortingPagingSelectingTests\\Eq")]
+        [InlineData("TestCases\\FilteringSortingPagingSelectingTests\\Contains")]
+        [InlineData("TestCases\\FilteringSortingPagingSelectingTests\\StartsWith")]
+        [InlineData("TestCases\\FilteringSortingPagingSelectingTests\\CommaDelim")]
+        public void TestFSPS(string folder) {
+            var input = File.ReadAllText($"{folder}\\Input.json");
+            var expectedJson = File.ReadAllText($"{folder}\\Expected.json");
+
+            var filterSortPageSelect = JToken.Parse(input).ToObject<FilterSortPageSelect<Color>>();
+
+            var colors = ColorRepo.Colors.AsQueryable();
+            var filteredColors = filterSortPageSelect.ApplyTo(colors);
+
+            var expected = JToken.Parse(expectedJson).ToObject(filteredColors.GetType());
+
+
+            Assert.True(filteredColors.IsEqualOrWrite(expected, _output));
+
+        }
+
+
     }
+
+
 }

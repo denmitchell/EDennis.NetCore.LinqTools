@@ -23,7 +23,7 @@ namespace EDennis.NetCore.LinqTools.Tests {
         [InlineData("TestCases\\FilteringSortingPagingTests\\Contains")]
         [InlineData("TestCases\\FilteringSortingPagingTests\\StartsWith")]
         [InlineData("TestCases\\FilteringSortingPagingTests\\CommaDelim")]
-        public void Test(string folder) {
+        public void TestFSP(string folder) {
             var input = File.ReadAllText($"{folder}\\Input.json");
             var expectedJson = File.ReadAllText($"{folder}\\Expected.json");
             var expected = JToken.Parse(expectedJson).ToObject<List<Color>>();
@@ -40,5 +40,31 @@ namespace EDennis.NetCore.LinqTools.Tests {
                 Assert.True(filteredColors.IsEqualOrWrite(expected, _output));
             }
         }
+
+
+        [Theory]
+        [InlineData("TestCases\\FilteringSortingPagingSelectingTests\\Eq")]
+        [InlineData("TestCases\\FilteringSortingPagingSelectingTests\\Contains")]
+        [InlineData("TestCases\\FilteringSortingPagingSelectingTests\\StartsWith")]
+        [InlineData("TestCases\\FilteringSortingPagingSelectingTests\\CommaDelim")]
+        public void TestFSPS(string folder) {
+            var input = File.ReadAllText($"{folder}\\Input.json");
+            var expectedJson = File.ReadAllText($"{folder}\\Expected.json");
+
+            var filterSortPageSelect = JToken.Parse(input).ToObject<FilterSortPageSelect<Color>>();
+
+            using (var context = new ColorDb2Context()) {
+                var colors = context.Colors;
+                var filteredColors = filterSortPageSelect.ApplyTo(colors);
+                var filteredColorsList = (filteredColors as IQueryable<dynamic>).AsEnumerable().ToList();
+
+                var expected = JToken.Parse(expectedJson).ToObject(filteredColorsList.GetType());
+
+                var filteredColors2 = JToken.FromObject(filteredColors).ToObject(expected.GetType());
+
+                Assert.True(filteredColors2.IsEqualOrWrite(expected, _output));
+            }
+        }
+
     }
 }

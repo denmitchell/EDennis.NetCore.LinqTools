@@ -1,0 +1,38 @@
+﻿{
+  "select":  ["Name","DateCreated"],
+  "filter": [
+    [
+      {
+        "property": "Name",
+        "operation": "Contains",
+        "stringValue": "Blue"
+      }
+    ],
+    [
+      {
+        "property": "Red",
+        "operation": "Lt",
+        "stringValue": "50"
+      },
+      {
+        "property": "Green",
+        "operation": "Lt",
+        "stringValue": "50"
+      }
+    ]
+  ],
+  "sort": [
+    {
+      "property": "Red",
+      "direction": "Ascending"
+    },
+    {
+      "property": "Green",
+      "direction": "Ascending"
+    }
+  ],
+  "page": {
+    "pageNumber": 2,
+    "pageSize": 10
+  }
+}

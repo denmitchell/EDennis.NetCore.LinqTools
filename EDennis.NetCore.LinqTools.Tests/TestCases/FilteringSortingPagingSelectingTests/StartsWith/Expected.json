@@ -1,0 +1,177 @@
+﻿[
+  {
+    "Name": "AliceBlue",
+    "Red": 240,
+    "Green": 248,
+    "Blue": 255,
+    "DateCreated": "2019-06-18T12:29:34"
+  },
+  {
+    "Name": "Azure",
+    "Red": 240,
+    "Green": 255,
+    "Blue": 255,
+    "DateCreated": "2019-06-14T12:29:50"
+  },
+  {
+    "Name": "FloralWhite",
+    "Red": 255,
+    "Green": 250,
+    "Blue": 240,
+    "DateCreated": "2019-05-03T12:29:50"
+  },
+  {
+    "Name": "GhostWhite",
+    "Red": 248,
+    "Green": 248,
+    "Blue": 255,
+    "DateCreated": "2019-04-29T12:29:50"
+  },
+  {
+    "Name": "HoneyDew",
+    "Red": 240,
+    "Green": 255,
+    "Blue": 240,
+    "DateCreated": "2019-04-22T12:29:50"
+  },
+  {
+    "Name": "Ivory",
+    "Red": 255,
+    "Green": 255,
+    "Blue": 240,
+    "DateCreated": "2019-04-18T12:29:50"
+  },
+  {
+    "Name": "Lavender",
+    "Red": 230,
+    "Green": 230,
+    "Blue": 250,
+    "DateCreated": "2019-04-16T12:29:50"
+  },
+  {
+    "Name": "LavenderBlush",
+    "Red": 255,
+    "Green": 240,
+    "Blue": 245,
+    "DateCreated": "2019-04-15T12:29:50"
+  },
+  {
+    "Name": "LightBlue",
+    "Red": 173,
+    "Green": 216,
+    "Blue": 230,
+    "DateCreated": "2019-04-12T12:29:50"
+  },
+  {
+    "Name": "LightCoral",
+    "Red": 240,
+    "Green": 128,
+    "Blue": 128,
+    "DateCreated": "2019-04-11T12:29:50"
+  },
+  {
+    "Name": "LightCyan",
+    "Red": 224,
+    "Green": 255,
+    "Blue": 255,
+    "DateCreated": "2019-04-10T12:29:50"
+  },
+  {
+    "Name": "LightGoldenRodYellow",
+    "Red": 250,
+    "Green": 250,
+    "Blue": 210,
+    "DateCreated": "2019-04-09T12:29:50"
+  },
+  {
+    "Name": "LightGray",
+    "Red": 211,
+    "Green": 211,
+    "Blue": 211,
+    "DateCreated": "2019-04-08T12:29:50"
+  },
+  {
+    "Name": "LightGreen",
+    "Red": 144,
+    "Green": 238,
+    "Blue": 144,
+    "DateCreated": "2019-04-06T12:29:50"
+  },
+  {
+    "Name": "LightGrey",
+    "Red": 211,
+    "Green": 211,
+    "Blue": 211,
+    "DateCreated": "2019-04-07T12:29:50"
+  },
+  {
+    "Name": "LightPink",
+    "Red": 255,
+    "Green": 182,
+    "Blue": 193,
+    "DateCreated": "2019-04-05T12:29:50"
+  },
+  {
+    "Name": "LightSalmon",
+    "Red": 255,
+    "Green": 160,
+    "Blue": 122,
+    "DateCreated": "2019-04-04T12:29:50"
+  },
+  {
+    "Name": "LightSeaGreen",
+    "Red": 32,
+    "Green": 178,
+    "Blue": 170,
+    "DateCreated": "2019-04-03T12:29:50"
+  },
+  {
+    "Name": "LightSkyBlue",
+    "Red": 135,
+    "Green": 206,
+    "Blue": 250,
+    "DateCreated": "2019-04-02T12:29:50"
+  },
+  {
+    "Name": "LightSlateGray",
+    "Red": 119,
+    "Green": 136,
+    "Blue": 153,
+    "DateCreated": "2019-04-01T12:29:50"
+  },
+  {
+    "Name": "LightSlateGrey",
+    "Red": 119,
+    "Green": 136,
+    "Blue": 153,
+    "DateCreated": "2019-03-31T12:29:50"
+  },
+  {
+    "Name": "LightSteelBlue",
+    "Red": 176,
+    "Green": 196,
+    "Blue": 222,
+    "DateCreated": "2019-03-30T12:29:50"
+  },
+  {
+    "Name": "LightYellow",
+    "Red": 255,
+    "Green": 255,
+    "Blue": 224,
+    "DateCreated": "2019-03-29T12:29:50"
+  },
+  {
+    "Name": "Linen",
+    "Red": 250,
+    "Green": 240,
+    "Blue": 230,
+    "DateCreated": "2019-03-26T12:29:50"
+  },
+  {
+    "Name": "MintCream",
+    "Red": 245,
+    "Green": 255,
+    "Blue": 250,
+    "DateCreated": "2019-03-13T12:29:50"
+  }
+]

@@ -30,7 +30,7 @@ namespace EDennis.NetCore.LinqTools {
         /// </summary>
         /// <param name="source">DbSet</param>
         /// <returns></returns>
-        public IQueryable<object> ApplyTo(DbSet<TEntity> source) {
+        public IQueryable ApplyTo(DbSet<TEntity> source) {
             var query = source as IQueryable<TEntity>;
             return ApplyTo(query);
         }
@@ -41,7 +41,7 @@ namespace EDennis.NetCore.LinqTools {
         /// </summary>
         /// <param name="source">IEnumerable</param>
         /// <returns></returns>
-        public IQueryable<object> ApplyTo(IEnumerable<TEntity> source) {
+        public IQueryable ApplyTo(IEnumerable<TEntity> source) {
             var query = source as IQueryable<TEntity>;
             return ApplyTo(query);
         }
@@ -53,7 +53,7 @@ namespace EDennis.NetCore.LinqTools {
         /// </summary>
         /// <param name="source">IQueryable</param>
         /// <returns></returns>
-        public IQueryable<object> ApplyTo(IQueryable<TEntity> source) {
+        public IQueryable ApplyTo(IQueryable<TEntity> source) {
 
             var query = source;
             var type = typeof(TEntity);

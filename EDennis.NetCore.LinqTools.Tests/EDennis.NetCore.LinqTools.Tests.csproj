@@ -23,16 +23,34 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="TestCases\FilteringSortingPagingSelectingTests\CommaDelim\Expected.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestCases\FilteringSortingPagingSelectingTests\CommaDelim\Input.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestCases\FilteringSortingPagingSelectingTests\Contains\Expected.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestCases\FilteringSortingPagingSelectingTests\Contains\Input.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestCases\FilteringSortingPagingSelectingTests\Eq\Expected.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestCases\FilteringSortingPagingSelectingTests\Eq\Input.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestCases\FilteringSortingPagingSelectingTests\StartsWith\Expected.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestCases\FilteringSortingPagingSelectingTests\StartsWith\Input.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="TestCases\FilteringSortingPagingTests\CommaDelim\Expected.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestCases\FilteringSortingPagingTests\CommaDelim\Input.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestCases\FilteringSortingPagingTests\Select\Expected.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestCases\FilteringSortingPagingTests\Select\Input.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestCases\FilteringSortingPagingTests\StartsWith\Expected.json">

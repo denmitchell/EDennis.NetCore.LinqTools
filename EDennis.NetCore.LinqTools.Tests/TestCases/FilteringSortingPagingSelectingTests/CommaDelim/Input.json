@@ -4,13 +4,18 @@
     [
       {
         "property": "Name",
-        "operation": "Eq",
-        "stringValue": "AliceBlue"
+        "operation": "StartsWith",
+        "stringValue": "Light,Dark"
       }
     ],
     [
       {
         "property": "Red",
+        "operation": "Eq",
+        "stringValue": "0"
+      },
+      {
+        "property": "Green",
         "operation": "Eq",
         "stringValue": "0"
       },
@@ -23,16 +28,12 @@
   ],
   "sort": [
     {
-      "property": "Red",
-      "direction": "Ascending"
-    },
-    {
-      "property": "Green",
+      "property": "Name",
       "direction": "Ascending"
     }
   ],
   "page": {
-    "pageNumber": 2,
-    "pageSize": 3
+    "pageNumber": 1,
+    "pageSize": 30
   }
 }
