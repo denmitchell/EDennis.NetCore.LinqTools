@@ -1,8 +1,8 @@
 # EDennis.NetCore.LinqTools
-Dynamically applies filtering, sorting, and paging to IEnumerable, IQueryable, and DbSet objects using either a JSON-friendly spec or a query-string spec. 
+Dynamically applies filtering, sorting, and paging (and optional selecting) to IEnumerable, IQueryable, and DbSet objects using either a JSON-friendly spec or a query-string spec. 
 
 ## The Full Filtering/Sorting/Paging Spec
-The full specification for filtering, sorting, and paging is represented by a simple, JSON-friendly hierarchical structure.  The library also supports a more simplified spec for query-string processing (see below).
+The full specification for filtering, sorting, paging, and selecting is represented by a simple, JSON-friendly hierarchical structure.  The library also supports a more simplified spec for query-string processing (see below).
 
 ### Example Specification as JSON
 ```json
@@ -70,7 +70,7 @@ In the above example, we select the Name and DateCreated properties.  Note: sele
 
 
 ## The Simplified Filtering/Sorting/Paging Spec Using a Query String
-The library also supports a Contoso-University-Project-inspired spec for query-string processing of filtering, sorting, and paging.  Filtering is specified by a _searchString_ query parameter (which uses the Contains operation).  Sorting is specified by a _sortOrder_ query parameter.  The value of the sortOrder parameter is the name of the field to sort on, with an optional "\_desc" suffix.  (There is a constructor overload for mapping sortOrder parameter values to field names and sort direction, just in case this kind of flexibility is required.)  Paging is accomplished with _pageNumber_ and _pageSize_ query parameters. 
+The library also supports a Contoso-University-Project-inspired spec for query-string processing of filtering, sorting, paging, and optional selecting.  Filtering is specified by a _searchString_ query parameter (which uses the Contains operation).  Sorting is specified by a _sortOrder_ query parameter.  The value of the sortOrder parameter is the name of the field to sort on, with an optional "\_desc" suffix.  (There is a constructor overload for mapping sortOrder parameter values to field names and sort direction, just in case this kind of flexibility is required.)  Paging is accomplished with _pageNumber_ and _pageSize_ query parameters. Selecting is accomplished with either an array of properties (if hardcoding on the server side) or a comma-delimited string (if passed in via URL).
 
 ## Other Examples
 The test project in this solution includes examples of filtering, sorting, and paging (and optional selecting) using the full (JSON body) spec and filtering, sorting, and paging using the simplified (query string) spec.
