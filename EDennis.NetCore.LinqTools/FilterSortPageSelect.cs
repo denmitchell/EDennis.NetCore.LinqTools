@@ -12,7 +12,7 @@ namespace EDennis.NetCore.LinqTools {
     /// EDennis.NetCore.LinqTools.Tests for examples.
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    public class FilterSortPage<TEntity>
+    public class FilterSortPageSelect<TEntity>
         where TEntity : class, new() {
 
         public FilterExpression<TEntity> Filter { get; set; }

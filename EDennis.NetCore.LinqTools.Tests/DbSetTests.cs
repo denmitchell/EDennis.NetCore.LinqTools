@@ -28,7 +28,7 @@ namespace EDennis.NetCore.LinqTools.Tests {
             var expectedJson = File.ReadAllText($"{folder}\\Expected.json");
             var expected = JToken.Parse(expectedJson).ToObject<List<Color>>();
 
-            var filterSortPage = JToken.Parse(input).ToObject<FilterSortPage<Color>>();
+            var filterSortPage = JToken.Parse(input).ToObject<FilterSortPageSelect<Color>>();
 
             using (var context = new ColorDb2Context()) {
                 var colors = context.Colors;

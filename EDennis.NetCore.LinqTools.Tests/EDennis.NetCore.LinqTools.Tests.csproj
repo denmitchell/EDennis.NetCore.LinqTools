@@ -29,6 +29,12 @@
     <None Update="TestCases\FilteringSortingPagingTests\CommaDelim\Input.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TestCases\FilteringSortingPagingTests\Select\Expected.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestCases\FilteringSortingPagingTests\Select\Input.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="TestCases\FilteringSortingPagingTests\StartsWith\Expected.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
