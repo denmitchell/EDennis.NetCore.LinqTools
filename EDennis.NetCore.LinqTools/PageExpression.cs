@@ -15,7 +15,7 @@ namespace EDennis.NetCore.LinqTools {
         where TEntity : class { 
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
-
+        public int? PageCount { get; set; }
 
         /// <summary>
         /// Applies paging to an IQueryable, according
@@ -25,9 +25,11 @@ namespace EDennis.NetCore.LinqTools {
         /// <returns></returns>
         public IQueryable<TEntity> ApplyTo(IQueryable<TEntity> source){
 
+            if (PageCount == null)
+                PageCount = (int)Math.Ceiling(source.ToList().Count() / (double)PageSize) ;
+
             var query = source.Skip((PageNumber - 1) * PageSize);
             query = query.Take(PageSize);
-
             return query;
         }
 

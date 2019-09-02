@@ -32,7 +32,9 @@ namespace EDennis.NetCore.LinqTools.Tests {
 
             using (var context = new ColorDb2Context()) {
                 var colors = context.Colors;
-                var filteredColors = filterSortPage.ApplyTo(colors);
+                var filteredColors = filterSortPage.ApplyTo(colors, out int pageCount);
+
+                Assert.True(pageCount > 1);
 
                 var filteredColorsJson = JToken.FromObject(filteredColors).ToString();
                 _output.WriteLine(filteredColorsJson);

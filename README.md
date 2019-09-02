@@ -1,8 +1,8 @@
 # EDennis.NetCore.LinqTools
-Dynamically applies filtering, sorting, and paging to IEnumerable, IQueryable, and DbSet objects using a JSON-friendly spec. 
+Dynamically applies filtering, sorting, and paging to IEnumerable, IQueryable, and DbSet objects using either a JSON-friendly spec or a query-string spec. 
 
-## The Filtering/Sorting/Paging Spec
-The specification for filtering, sorting, and paging is represented by a simple, JSON-friendly hierarchical structure.
+## The Full Filtering/Sorting/Paging Spec
+The full specification for filtering, sorting, and paging is represented by a simple, JSON-friendly hierarchical structure.  The library also supports a more simplified spec for query-string processing (see below).
 
 ### Example Specification as JSON
 ```json
@@ -62,5 +62,8 @@ The paging specification is a single object consisting of a page number and page
 
 In the above example, we return the second page, where each page holds three objects.
 
+## The Simplified Filtering/Sorting/Paging Spec Using a Query String
+The library also supports a Contoso-University-Project-inspired spec for query-string processing of filtering, sorting, and paging.  Filtering is specified by a _searchString_ query parameter (which uses the Contains operation).  Sorting is specified by a _sortOrder_ query parameter.  The value of the sortOrder parameter is the name of the field to sort on, with an optional "\_desc" suffix.  (There is a constructor overload for mapping sortOrder parameter values to field names and sort direction, just in case this kind of flexibility is required.)  Paging is accomplished with _pageNumber_ and _pageSize_ query parameters. 
+
 ## Other Examples
-The test project in this solution includes other examples of filtering, sorting, and paging.
+The test project in this solution includes examples of filtering, sorting, and paging, using the full (JSON body) spec and the simplified (query string) spec.
